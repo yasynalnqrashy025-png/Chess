@@ -77,8 +77,64 @@
       square.textContent = pieces[i];
 
       board.appendChild(square);
+    
+  const board = document.getElementById("board");
+
+  const pieces = [
+    "♜","♞","♝","♛","♚","♝","♞","♜",
+    "♟","♟","♟","♟","♟","♟","♟","♟",
+    "","","","","","","","",
+    "","","","","","","","",
+    "","","","","","","","",
+    "","","","","","","","",
+    "♙","♙","♙","♙","♙","♙","♙","♙",
+    "♖","♘","♗","♕","♔","♗","♘","♖"
+  ];
+
+  let selectedSquare = null;
+
+  function drawBoard() {
+    board.innerHTML = "";
+
+    for (let i = 0; i < 64; i++) {
+      const square = document.createElement("div");
+
+      const row = Math.floor(i / 8);
+      const col = i % 8;
+
+      square.classList.add("square");
+
+      if ((row + col) % 2 === 0) {
+        square.classList.add("light");
+      } else {
+        square.classList.add("dark");
+      }
+
+      square.textContent = pieces[i];
+
+      square.addEventListener("click", () => {
+        if (selectedSquare === null) {
+          if (pieces[i] !== "") {
+            selectedSquare = i;
+            square.style.background = "#646f40";
+          }
+        } else {
+          pieces[i] = pieces[selectedSquare];
+          pieces[selectedSquare] = "";
+
+          selectedSquare = null;
+
+          drawBoard();
+        }
+      });
+
+      board.appendChild(square);
     }
-  </script>
+  }
+
+  drawBoard();
+</script>
+
 
 </body>
 </html>
