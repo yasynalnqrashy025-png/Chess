@@ -3,12 +3,82 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>Chess Game</title>
+
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #312e2b;
+      font-family: Arial, sans-serif;
+    }
+
+    .chess-board {
+      width: 480px;
+      height: 480px;
+      display: grid;
+      grid-template-columns: repeat(8, 1fr);
+      grid-template-rows: repeat(8, 1fr);
+    }
+
+    .square {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 45px;
+    }
+
+    .light {
+      background: #f0d9b5;
+    }
+
+    .dark {
+      background: #b58863;
+    }
+  </style>
 </head>
 
 <body>
 
-  <h1>Chess Game</h1>
+  <div class="chess-board" id="board"></div>
+
+  <script>
+    const board = document.getElementById("board");
+
+    const pieces = [
+      "♜","♞","♝","♛","♚","♝","♞","♜",
+      "♟","♟","♟","♟","♟","♟","♟","♟",
+      "","","","","","","","",
+      "","","","","","","","",
+      "","","","","","","","",
+      "","","","","","","","",
+      "♙","♙","♙","♙","♙","♙","♙","♙",
+      "♖","♘","♗","♕","♔","♗","♘","♖"
+    ];
+
+    for (let i = 0; i < 64; i++) {
+      const square = document.createElement("div");
+
+      const row = Math.floor(i / 8);
+      const col = i % 8;
+
+      square.classList.add("square");
+
+      if ((row + col) % 2 === 0) {
+        square.classList.add("light");
+      } else {
+        square.classList.add("dark");
+      }
+
+      square.textContent = pieces[i];
+
+      board.appendChild(square);
+    }
+  </script>
 
 </body>
 </html>
